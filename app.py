@@ -3,30 +3,22 @@ import json
 import time
 from collections import deque
 
-missing_dependency = None
-try:
-    import torch
-    from torchvision import transforms
-    from PIL import Image
-    import numpy as np
-    import pandas as pd
-    import cv2
-except ImportError as e:
-    missing_dependency = "required packages (torch, pillow, opencv-python, etc.)"
+# Assume dependencies installed via requirements.txt
+# pip install -r requirements.txt
+import torch
+from torchvision import transforms
+from PIL import Image
+import numpy as np
+import pandas as pd
+import cv2
 
 # ================= CONFIG =================
 st.set_page_config(page_title="GestureAI Dashboard", layout="wide")
 
-if missing_dependency is not None:
-    st.error(
-        f"Missing dependency: {missing_dependency}.\n"
-        "Install required packages with `pip install -r requirements.txt`."
-    )
-    st.stop()
-
 st.markdown('<div class="title">🤖 GestureAI | Smart Recognition Dashboard</div>', unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#94a3b8; font-weight: 500;'>Multi-Modal Intelligence Interface</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#94a3b8; font-weight: 500;'>Multi-Modal Intelligence Interface | <a href=\"https://github.com/asm59-345/GestureAI\">GitHub</a></p>", unsafe_allow_html=True)
 st.markdown("---")
+
 # ================= SESSION =================
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -66,6 +58,39 @@ body {
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+
+# ================= ABOUT =================
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("""
+    <div class="glass">
+    <h3>🚀 About This App</h3>
+    <p>AI-powered gesture recognition dashboard</p>
+    <ul>
+    <li>34 gestures, 87% accuracy</li>
+    <li>Real-time webcam</li>
+    <li>Image upload</li>
+    <li>PyTorch model</li>
+    <li>Streamlit frontend</li>
+    </ul>
+    <p><a href="https://github.com/asm59-345/GestureAI" style="color:#00ffe0">View Repo</a></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="glass">
+    <h3>📦 Deployed</h3>
+    <p>Streamlit Cloud - Auto from GitHub</p>
+    <p>requirements.txt → deps</p>
+    <p>app.py → entrypoint</p>
+    <p>Works everywhere!</p>
+    <p>Hackathon 2026</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
 
 # ================= LOAD CLASS =================
 with open('class_names.json', 'r') as f:
