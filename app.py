@@ -12,7 +12,7 @@ try:
     import pandas as pd
     import cv2
 except ImportError as e:
-    missing_dependency = str(e).split()[-1].strip("'\"")
+    missing_dependency = "required packages (torch, pillow, opencv-python, etc.)"
 
 # ================= CONFIG =================
 st.set_page_config(page_title="GestureAI Dashboard", layout="wide")
