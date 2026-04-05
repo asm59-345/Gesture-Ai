@@ -1,0 +1,32 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+env.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.DS_Store
+.pytest_cache/
+.vscode/
+!.vscode/settings.json
+!.github/workflows/
+
+# Streamlit
+.streamlit/
+
+# Model backups
+*.pth~
+

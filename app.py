@@ -1,16 +1,29 @@
 import streamlit as st
-import torch
-from torchvision import transforms
-from PIL import Image
 import json
-import numpy as np
-import pandas as pd
 import time
-import cv2
 from collections import deque
 
+missing_dependency = None
+try:
+    import torch
+    from torchvision import transforms
+    from PIL import Image
+    import numpy as np
+    import pandas as pd
+    import cv2
+except ImportError as e:
+    missing_dependency = str(e).split()[-1].strip("'\"")
+
 # ================= CONFIG =================
-#st.set_page_config(page_title="GestureAI Dashboard", layout="wide")
+st.set_page_config(page_title="GestureAI Dashboard", layout="wide")
+
+if missing_dependency is not None:
+    st.error(
+        f"Missing dependency: {missing_dependency}.\n"
+        "Install required packages with `pip install -r requirements.txt`."
+    )
+    st.stop()
+
 st.markdown('<div class="title">🤖 GestureAI | Smart Recognition Dashboard</div>', unsafe_allow_html=True)
 st.markdown("<p style='text-align:center; color:#94a3b8; font-weight: 500;'>Multi-Modal Intelligence Interface</p>", unsafe_allow_html=True)
 st.markdown("---")
