@@ -4,4 +4,4 @@ torchvision
 pillow
 numpy
 pandas
-opencv-python-headless==4.9.0.80
+opencv-python
