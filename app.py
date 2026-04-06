@@ -154,59 +154,45 @@ tab1, tab2, tab3, tab4 = st.tabs(["📷 Camera", "🖼 Upload", "📜 History", 
 with tab1:
     st.markdown("### 📷 Live Gesture Detection")
 
-    colA, colB = st.columns(2)
-
-    with colA:
-        if st.button("▶ Start Camera"):
-            st.session_state.run_cam = True
-
-    with colB:
-        if st.button("⏹ Stop Camera"):
-            st.session_state.run_cam = False
-
-    FRAME_WINDOW = st.image([])
+    # Use Streamlit camera instead of cv2
+    img_file_buffer = st.camera_input("Take a picture")
 
     pred_buffer = deque(maxlen=5)
 
-    if st.session_state.run_cam:
-        cap = cv2.VideoCapture(0)
+    if img_file_buffer is not None:
+        # Convert to PIL image
+        image = Image.open(img_file_buffer).convert("RGB")
 
-        while st.session_state.run_cam:
-            ret, frame = cap.read()
-            if not ret:
-                st.error("Camera error")
-                break
+        col1, col2 = st.columns([1.2, 1])
 
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            image = Image.fromarray(frame)
+        with col1:
+            st.image(image, width=600)
 
+        with col2:
             probs, pred, conf = predict(image)
             label = class_names[pred]
 
-            # Smooth prediction
+            # Smooth prediction (optional here)
             pred_buffer.append(label)
             stable_label = max(set(pred_buffer), key=pred_buffer.count)
 
-            # Draw overlay
-            cv2.putText(frame,
-                        f"{stable_label} ({conf:.2f})",
-                        (20, 40),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        1,
-                        (0, 255, 0),
-                        2)
+            st.markdown(
+                f'<div class="prediction">🎯 {stable_label.upper()}</div>',
+                unsafe_allow_html=True
+            )
+            st.progress(float(conf))
+            st.markdown(
+                f'<div class="metric">Confidence: {conf*100:.2f}%</div>',
+                unsafe_allow_html=True
+            )
 
-            FRAME_WINDOW.image(frame)
-
-            # Save history if confident
+            # Save history
             if conf > 0.85:
                 st.session_state.history.append({
                     "label": stable_label,
                     "confidence": conf,
                     "time": time.strftime("%H:%M:%S")
                 })
-
-        cap.release()
 
 # =========================================================
 # 🖼 UPLOAD
