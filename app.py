@@ -3,6 +3,8 @@ import json
 import time
 from collections import deque
 
+# Assume dependencies installed via requirements.txt
+# pip install -r requirements.txt
 import torch
 from torchvision import transforms
 from PIL import Image
@@ -14,7 +16,8 @@ import cv2
 st.set_page_config(page_title="GestureAI Dashboard", layout="wide")
 
 st.markdown('<div class="title">🤖 GestureAI | Smart Recognition Dashboard</div>', unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#94a3b8; font-weight: 500;'>Multi-Modal Intelligence Interface  </p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#94a3b8; font-weight: 500;'>Multi-Modal Intelligence Interface | <a href=\"https://github.com/asm59-345/GestureAI\">GitHub</a></p>", unsafe_allow_html=True)
+st.markdown("---")
 
 # ================= SESSION =================
 if "history" not in st.session_state:
@@ -54,6 +57,38 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ================= ABOUT =================
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("""
+    <div class="glass">
+    <h3>🚀 About This App</h3>
+    <p>AI-powered gesture recognition dashboard</p>
+    <ul>
+    <li>34 gestures, 87% accuracy</li>
+    <li>Real-time webcam</li>
+    <li>Image upload</li>
+    <li>PyTorch model</li>
+    <li>Streamlit frontend</li>
+    </ul>
+    <p><a href="https://github.com/asm59-345/GestureAI" style="color:#00ffe0">View Repo</a></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="glass">
+    <h3>📦 Deployed</h3>
+    <p>Streamlit Cloud - Auto from GitHub</p>
+    <p>requirements.txt → deps</p>
+    <p>app.py → entrypoint</p>
+    <p>Works everywhere!</p>
+    <p>Hackathon 2026</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -283,8 +318,5 @@ with tab4:
 
 # ================= FOOTER =================
 st.markdown("---")
-
-st.markdown("⚡ Powered by PyTorch + Streamlit | GestureAI | Build by Ankit's Team")
-
-st.markdown(" Develoved by Ashmit_Gautam <p><a href=\"https://github.com/asm59-345/GestureAI\">GitHub</a></p>", unsafe_allow_html=True)
-st.markdown("GestureAI Dashboard The system is built to provide Twin-Stream visualization—a feature commonly used in computer vision research to compare raw sensor data with neural network inferences. It leverages a lightweight yet powerful backbone to ensure low latency even on standard hardware. ")
+st.markdown("⚡ Powered by PyTorch + Streamlit | GestureAI | Build by Ankit's Team ")
+st.markdown(" Developed by Ashmit Gautam")
